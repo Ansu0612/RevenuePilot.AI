@@ -154,3 +154,33 @@ CREATE TABLE subscription (
         FOREIGN KEY (company_id)
         REFERENCES company(company_id)
 );
+
+
+-- =====================================================
+-- Table: subscription
+-- Purpose: Stores customer subscription details.
+-- =====================================================
+
+CREATE TABLE subscription (
+    subscription_id INT AUTO_INCREMENT PRIMARY KEY,
+    company_id INT NOT NULL,
+    plan_name VARCHAR(100) NOT NULL,
+    billing_cycle ENUM(
+        'Monthly',
+        'Quarterly',
+        'Yearly'
+    ) NOT NULL,
+    subscription_amount DECIMAL(10,2) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE,
+    status ENUM(
+        'Active',
+        'Expired',
+        'Cancelled'
+    ) DEFAULT 'Active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_subscription_company
+        FOREIGN KEY (company_id)
+        REFERENCES company(company_id)
+);
