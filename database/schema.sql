@@ -66,3 +66,30 @@ CREATE TABLE marketing_campaign (
     ) DEFAULT 'Planned',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- =====================================================
+-- Table: leads
+-- Purpose: Stores potential customers generated through marketing campaigns.
+-- =====================================================
+
+CREATE TABLE leads (
+    lead_id INT AUTO_INCREMENT PRIMARY KEY,
+    campaign_id INT NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    phone VARCHAR(20),
+    company_name VARCHAR(150),
+    lead_source VARCHAR(50) NOT NULL,
+    lead_status ENUM(
+        'New',
+        'Contacted',
+        'Qualified',
+        'Lost'
+    ) DEFAULT 'New',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_leads_campaign
+        FOREIGN KEY (campaign_id)
+        REFERENCES marketing_campaign(campaign_id)
+);
