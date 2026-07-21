@@ -44,3 +44,25 @@ CREATE TABLE contact (
         FOREIGN KEY (company_id)
         REFERENCES company(company_id)
 );
+
+-- =====================================================
+-- Table: marketing_campaign
+-- Purpose: Stores marketing campaigns used to generate leads.
+-- =====================================================
+
+CREATE TABLE marketing_campaign (
+    campaign_id INT AUTO_INCREMENT PRIMARY KEY,
+    campaign_name VARCHAR(150) NOT NULL,
+    campaign_type VARCHAR(50) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE,
+    budget DECIMAL(12,2) NOT NULL,
+    target_audience VARCHAR(100),
+    status ENUM(
+        'Planned',
+        'Active',
+        'Completed',
+        'Paused'
+    ) DEFAULT 'Planned',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
