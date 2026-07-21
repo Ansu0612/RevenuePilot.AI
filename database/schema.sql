@@ -235,3 +235,37 @@ CREATE TABLE product_usage (
         FOREIGN KEY (company_id)
         REFERENCES company(company_id)
 );
+
+-- =====================================================
+-- Table: support_ticket
+-- Purpose: Stores customer support requests.
+-- =====================================================
+
+CREATE TABLE support_ticket (
+    ticket_id INT AUTO_INCREMENT PRIMARY KEY,
+    company_id INT NOT NULL,
+    contact_id INT NOT NULL,
+    ticket_title VARCHAR(200) NOT NULL,
+    priority ENUM(
+        'Low',
+        'Medium',
+        'High',
+        'Critical'
+    ) DEFAULT 'Medium',
+    status ENUM(
+        'Open',
+        'In Progress',
+        'Resolved',
+        'Closed'
+    ) DEFAULT 'Open',
+    created_date DATE NOT NULL,
+    resolved_date DATE,
+
+    CONSTRAINT fk_support_company
+        FOREIGN KEY (company_id)
+        REFERENCES company(company_id),
+
+    CONSTRAINT fk_support_contact
+        FOREIGN KEY (contact_id)
+        REFERENCES contact(contact_id)
+);
