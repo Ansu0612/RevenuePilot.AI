@@ -215,3 +215,23 @@ CREATE TABLE payment (
         FOREIGN KEY (subscription_id)
         REFERENCES subscription(subscription_id)
 );
+
+
+-- =====================================================
+-- Table: product_usage
+-- Purpose: Stores customer product usage and engagement metrics.
+-- =====================================================
+
+CREATE TABLE product_usage (
+    usage_id INT AUTO_INCREMENT PRIMARY KEY,
+    company_id INT NOT NULL,
+    feature_name VARCHAR(100) NOT NULL,
+    usage_date DATE NOT NULL,
+    usage_count INT DEFAULT 1,
+    session_duration_minutes INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_product_usage_company
+        FOREIGN KEY (company_id)
+        REFERENCES company(company_id)
+);
