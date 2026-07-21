@@ -184,3 +184,34 @@ CREATE TABLE subscription (
         FOREIGN KEY (company_id)
         REFERENCES company(company_id)
 );
+
+
+-- =====================================================
+-- Table: payment
+-- Purpose: Stores payment transactions for subscriptions.
+-- =====================================================
+
+CREATE TABLE payment (
+    payment_id INT AUTO_INCREMENT PRIMARY KEY,
+    subscription_id INT NOT NULL,
+    payment_date DATE NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    payment_method ENUM(
+        'Credit Card',
+        'Debit Card',
+        'UPI',
+        'Bank Transfer'
+    ) NOT NULL,
+    payment_status ENUM(
+        'Success',
+        'Pending',
+        'Failed',
+        'Refunded'
+    ) DEFAULT 'Success',
+    transaction_id VARCHAR(100) UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_payment_subscription
+        FOREIGN KEY (subscription_id)
+        REFERENCES subscription(subscription_id)
+);
