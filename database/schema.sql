@@ -2,8 +2,8 @@
 -- RevenuePilot AI Database Schema
 -- =====================================================
 
-CREATE DATABASE IF NOT EXISTS revenuepilot_ai;
-USE revenuepilot_ai;
+CREATE DATABASE IF NOT EXISTS revenuepilot;
+USE revenuepilot;
 
 -- =====================================================
 -- Table: company
