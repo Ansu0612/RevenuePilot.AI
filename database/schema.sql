@@ -93,3 +93,34 @@ CREATE TABLE leads (
         FOREIGN KEY (campaign_id)
         REFERENCES marketing_campaign(campaign_id)
 );
+
+
+-- =====================================================
+-- Table: opportunity
+-- Purpose: Stores qualified sales opportunities created from leads.
+-- =====================================================
+
+CREATE TABLE opportunity (
+    opportunity_id INT AUTO_INCREMENT PRIMARY KEY,
+    lead_id INT NOT NULL,
+    company_id INT NOT NULL,
+    opportunity_name VARCHAR(150) NOT NULL,
+    stage ENUM(
+        'Qualification',
+        'Proposal',
+        'Negotiation',
+        'Won',
+        'Lost'
+    ) DEFAULT 'Qualification',
+    expected_value DECIMAL(12,2) NOT NULL,
+    expected_close_date DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_opportunity_lead
+        FOREIGN KEY (lead_id)
+        REFERENCES leads(lead_id),
+
+    CONSTRAINT fk_opportunity_company
+        FOREIGN KEY (company_id)
+        REFERENCES company(company_id)
+);
